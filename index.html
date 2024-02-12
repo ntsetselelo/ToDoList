@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "todo-list.css">
+</head>
+<body>
+  <div class = "todolist">
+    <div>
+      <p class = "title">Todo list</p>
+    </div>
+    
+    <div class = "todo-input-grid">
+      <input placeholder="todo name" class = "js-input-name name-input" >
+      <input type = "date" class = "js-due-date-input due-date-input">
+      
+      <button onclick ="
+        addtodo();
+        
+      "class = "add-todo-button">Add</button>
+    </div>
+  
+    <div class = "js-todo-list todo-grid"></div>
+  </div>
+  
+
+  <script>
+    const todoList = [{
+        name: 'make dinner',
+        dueDate:'2023-02-07'
+      }, {
+        name:'wash dishes',
+        dueDate:'2023-02-07'
+    }];
+    
+
+    renderhtml();
+   
+
+    function renderhtml(){
+        let todolistHTML = '';
+
+            for(let i = 0; i < todoList.length; i++){
+            const todoObject = todoList[i];
+            const name = todoObject.name;
+            const dueDate = todoObject.dueDate;
+            const html = `
+              <div> ${name}</div>
+              <div>${dueDate}</div>
+              <button onclick = "
+                todoList.splice(${i}, 1);
+                renderhtml();
+              "class = "delete-todo-button">Delete</button>            
+              `;
+            todolistHTML += html;
+            }
+            document.querySelector('.js-todo-list').innerHTML = 
+                todolistHTML;
+
+    }
+   
+    function addtodo(){
+      
+       
+       const inputElement = 
+       document.querySelector('.js-input-name');
+       
+       const name = inputElement.value;
+
+       const dateInputElement = document.querySelector('.js-due-date-input');
+       const dueDate = dateInputElement.value;
+
+       todoList.push({
+        name,
+        dueDate
+       });
+      
+       inputElement.value = '';
+       renderhtml();  
+       
+    }
+
+  </script>
+</body>
+</html>
